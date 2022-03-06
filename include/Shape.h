@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Point.h"
-#include "CollisionHandler.h"
+#include "CollisionInfo.h"
 #include "Point.h"
 #include <string>
 #include <vector>
@@ -15,7 +15,7 @@ namespace Shapes2D {
 		XY acceleration;
 		double gravityConstant = 0.001;
 		double friction = 0.0;
-		double restitution = 50;		// bounciness
+		double restitution = 0.00001;		// bounciness
 
 		void operator=(const PhysicalProperties& src) {
 			mass = src.mass;
@@ -39,10 +39,11 @@ namespace Shapes2D {
 		Point center;
 		inline virtual double Area() { return 0.0; }
 		bool immovable = true;
-		CollisionHandler collisionHandler;
+		CollisionInfo collisionInfo;
 	public:
 		std::vector<std::shared_ptr<Point>> points;
 		bool falling = true;
+		bool grounded = false;
 
 		Shape();
 		Shape(const Shape& src);
@@ -72,7 +73,7 @@ namespace Shapes2D {
 
 		inline void SetAcceleration(XY acceleration_p) { physicalProps.acceleration = acceleration_p; }
 		inline virtual std::wstring GetShapeName() { return L"Shape"; }
-		inline bool Collided() { return collisionHandler.collided; }
+		inline bool Collided() { return collisionInfo.collided; }
 		inline double GetMass() { return physicalProps.mass; }
 		inline double GetInverseMass() { return physicalProps.inverseMass; }
 		inline double GetRestitution() { return physicalProps.restitution; }
