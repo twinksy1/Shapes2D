@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Square.h"
+#include "Line.h"
 
 namespace Shapes2D {
 	inline bool AreParallel(Line line1, Line line2) {
@@ -25,5 +26,21 @@ namespace Shapes2D {
 		Square square;
 		square.SetTwoEqualSidesLR(l1, l2);
 		return square;
+	}
+
+	inline double GetRelativeDistance(Point a, Point b) {
+		double xdiff = a.x - b.x;
+		double ydiff = a.y - b.y;
+		return (xdiff * xdiff) + (ydiff * ydiff);
+	}
+
+	inline double GetAbsoluteDistance(Point a, Point b) {
+		double xdiff = a.x - b.x;
+		double ydiff = a.y - b.y;
+		return sqrt((xdiff * xdiff) + (ydiff * ydiff));
+	}
+
+	inline double DotProduct(XY a, XY b) {
+		return (a.x * b.x) + (a.y * b.y);
 	}
 }
